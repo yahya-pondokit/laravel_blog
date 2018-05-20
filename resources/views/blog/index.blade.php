@@ -23,12 +23,15 @@
 							<img src="{{ $post->image_url }}" alt="none">
 						</a>
 					@endif
+
 					<h1>{{ $post->title }}</h1>
+					<h3>{{ $post->author->name }} >> {{ $post->date }} </h3>
 					<p>{{ $post->excerpt }} </p>
 				</div>
 			</div>
 			@endforeach
 
+			{{ $posts->links() }}
 
 		</div>
 
