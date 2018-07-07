@@ -120,7 +120,11 @@ return [
     */
 
     'providers' => [
-
+        Intervention\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -159,6 +163,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 
@@ -209,6 +214,13 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Str' => Illuminate\Support\Str::class,
+
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

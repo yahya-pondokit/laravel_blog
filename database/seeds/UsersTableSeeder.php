@@ -1,7 +1,7 @@
-<?php
-
+<?php 
+ 
 use Illuminate\Database\Seeder;
-
+use Faker\Factory;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -10,28 +10,40 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        // reset the users table
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+    {	
+    	// menghapus seluruh data tabel users 
+    	DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('users')->truncate();
+           
 
-        //generate 3 users/author
+    	// tambahkan 3 author ke dalam tabel users
+    	$faker = Factory::create();
+        
         DB::table('users')->insert([
-        	[
-        		'name' => "John Doe",
-        		'email' => "johndoe@test.com",
-        		'password' => bcrypt('secret')
-        	],
-        	[
-        		'name' => "Jane Doe",
-        		'email' => "janedoe@test.com",
-        		'password' => bcrypt('secret')
-        	],
-        	[
-        		'name' => "Johny Doe",
-        		'email' => "johnydoe@test.com",
-        		'password' => bcrypt('secret')
-        	],
-        ]);
+    		[ 
+    			'name'      => "godkuru",
+                'slug'      => "kuru",
+    			'email'     => "me@heaven.com",
+    			'password'  => bcrypt('secret'),
+                 'bio'        => $faker->text(rand(250, 300))
+
+    		],
+    		[ 
+    			'name'       => "john doe",
+                'slug'       => "john-doe",
+    			'email'      => "john@gmail.com",
+    			'password'   => bcrypt('secret'),
+                 'bio'        => $faker->text(rand(250, 300))
+
+    		],
+    		[ 
+    			'name'       => "Anton Sokolov",
+                'slug'       => "anton-sokolov",
+    			'email'      => "sokolov@gmail.com",
+    			'password'   => bcrypt('secret'),
+                'bio'        => $faker->text(rand(250, 300))
+    		],
+    	]);
+
     }
 }

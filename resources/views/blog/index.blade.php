@@ -1,49 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-	
-	<head>
-	
-		<meta charset="UTF-8">
-		<title>@yield('title')</title>
-	
-	</head>
+@extends('layout.main')
+@section('title', 'INDEKKUSU')
 
-	<body>
-		<div id="header">
-			<h1>BLOGQUE</h1>
-		</div>
+@section('content')
+        <div id="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
 
-		<div id="body">
+					@if (! $posts->count())
+						<p>Nothing Found</p>
+					@else
+						@include('blog.alert')
+						
+						@foreach($posts as $post)
+	                        <div class="article"><!-- article start -->
+	                            <div class="article-teaser">         	
+									@if ($post->image_url)
+		                                <a href="{{ route('blog.show', $post->slug) }}">
+		                                    <img src="{{ $post->image_url }}" alt="dummy">
+		                                </a>
+									@endif
+	                            </div>
+	                            <div class="article-body text-center">
+	                                <div class="article-body-inside">
+	                                    <a href="{{ route('category', $post->category->slug) }}"> {{ $post->category->title }} </a>
+	                                    <h2 class="article-title"><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h2>
+	                                    <p><em>Posted on <a href="#">{{ $post->date }}</a> - By <a href="{{ route('author', $post->author->slug) }}">{{ $post->author->name }}</a> - (brp komen)</em></p>
+	                                    <p>
+									        <em><i class="fa fa-tag"></i>
+									        	{!! $post->tags_html !!}
+									        </em>
+									    </p>
+	                                    <p>{!! $post->excerpt_html !!}...</p>
+	                                </div>
+	                                <div class="continue">
+	                                    <a href="{{ route('blog.show', $post->slug) }}">CONTINUE READING &raquo;</a>
+	                                </div>
+	                            </div>
+	                        </div><!-- article end -->
+						@endforeach
 
-			@foreach($posts as $post)
-			<div class="box-body">
-				<div class="mini-box">
-					@if ($post->image_url)
-						<a href="#">
-							<img src="{{ $post->image_url }}" alt="none">
-						</a>
+					{{ $posts->appends(request()->only(['term']))->links() }}
 					@endif
 
-					<h1>{{ $post->title }}</h1>
-					<h3>{{ $post->author->name }} >> {{ $post->date }} </h3>
-					<p>{{ $post->excerpt }} </p>
-				</div>
-			</div>
-			@endforeach
-
-			{{ $posts->links() }}
-
-		</div>
-
-		<div id="sidebar">
-			bootstrappp
-		</div>
-
-		<div id="footer">
-			<div class="box-footer">
-				this is footer
-			</div>
-		</div>
-	</body>
-
-</html>
+                    </div>
+                    @include('layout.sidebar')
+                </div>
+            </div>
+        </div>
+@endsection
