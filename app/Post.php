@@ -33,6 +33,18 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function commentsNumber($label = 'Comment')
+    {
+        $commentsNumber = $this->comments->count();
+
+        return $commentsNumber . " " . str_plural($label, $commentsNumber);
+    }
+
     public function setPublishedAtAttribute($value)
     {
         $this->attributes['published_at'] = $value ?: NULL;
@@ -112,6 +124,15 @@ class Post extends Model
         }
     }
 
+    public static function archives()
+    {
+        return static::selectRaw('count(id) as post_count, year(published_at) year, monthname(published_at) month')
+                        ->published()
+                        ->groupBy('year', 'month')
+                        ->orderByRaw('min(published_at) desc')
+                        ->get();
+    }
+
     public function scopeLatestFirst($query)
     {
         return $query->orderBy('created_at', 'desc');
@@ -137,10 +158,19 @@ class Post extends Model
         return $query->whereNull("published_at");
     }
 
-    public function scopeFilter($query, $term)
+    public function scopeFilter($query, $filter)
     {
+        if (isset($filter['month']) && $month = $filter['month']) {
+            $query->whereRaw('month(published_at) = ?', [Carbon::parse($month)->month]);
+        }
+
+        if (isset($filter['year']) && $year = $filter['year']) {
+            $query->whereRaw('year(published_at) = ?', [$year]);
+        }
+
         // check if any term entered
-        if ($term = request('term')) {
+        if (isset($filter['term']) && $term = $filter['term']) 
+        {
             $query->where(function($q) use ($term) {
                 // $q->whereHas('author', function($qr) use ($term) {
                 //  $qr->where('name', 'LIKE', "%{$term}%");

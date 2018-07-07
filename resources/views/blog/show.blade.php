@@ -25,7 +25,7 @@
 	                                <div class="article-body-inside">
 	                                    <a href="{{ route('category', $post->category->slug) }}">{{ $post->category->title }}</a>
 	                                    <h2 class="article-title"><a href="article.html">{{ $post->title }}</a></h2>
-	                                    <p><em>Posted on <a href="#">{{ $post->date }}</a> - By <a href="route('author', $author->slug) }}">{{ $author->name }}</a> - Tags: {!! $post->tags_html !!} - (brp komen)</em></p>
+	                                    <p><em>Posted on <a href="#">{{ $post->date }}</a> - By <a href="route('author', $author->slug) }}">{{ $author->name }}</a> - Tags: {!! $post->tags_html !!} - <a href="#post-comments">{{ $post->commentsNumber() }}</a></em></p>
 	                                    <p>{!! $post->body_html !!}</p>
 	                                </div>
 	                            </div>
@@ -44,6 +44,7 @@
 	                  		<p><strong>Bio : </strong>{!! $author->bio_html !!}
 	                  	</div>
 
+                    @include('blog.comments')
                     </div>
                     @include('layout.sidebar')
                 </div>

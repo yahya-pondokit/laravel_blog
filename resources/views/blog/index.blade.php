@@ -25,7 +25,7 @@
 	                                <div class="article-body-inside">
 	                                    <a href="{{ route('category', $post->category->slug) }}"> {{ $post->category->title }} </a>
 	                                    <h2 class="article-title"><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h2>
-	                                    <p><em>Posted on <a href="#">{{ $post->date }}</a> - By <a href="{{ route('author', $post->author->slug) }}">{{ $post->author->name }}</a> - (brp komen)</em></p>
+	                                    <p><em>Posted on <a href="#">{{ $post->date }}</a> - By <a href="{{ route('author', $post->author->slug) }}">{{ $post->author->name }}</a> - <a href="{{ route('blog.show', $post->slug) }}#post-comments"> {{ $post->commentsNumber() }} </a></em></p>
 	                                    <p>
 									        <em><i class="fa fa-tag"></i>
 									        	{!! $post->tags_html !!}
@@ -40,7 +40,7 @@
 	                        </div><!-- article end -->
 						@endforeach
 
-					{{ $posts->appends(request()->only(['term']))->links() }}
+					{{ $posts->appends(request()->only(['term', 'month', 'year']))->links() }}
 					@endif
 
                     </div>

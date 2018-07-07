@@ -7,6 +7,7 @@ use App\Post;
 use App\Category;
 use App\User;
 use App\Tag;
+use App\Comment;
 
 class BlogController extends Controller
 {
@@ -14,10 +15,10 @@ class BlogController extends Controller
 
     public function index()
     {
-      $posts = Post::with('author', 'tags', 'category')
+      $posts = Post::with('author', 'tags', 'category', 'comments')
               ->latestFirst()
                             ->published()
-                            ->filter(request('term'))
+                            ->filter(request()->only(['term', 'year', 'month']))
                             ->simplePaginate($this->limit);
 
       return view('blog.index', compact('posts'));
@@ -28,7 +29,7 @@ class BlogController extends Controller
     {
         $categoryName = $category->title;
         $posts = $category->posts()
-                          ->with('author', 'tags')
+                          ->with('author', 'tags', 'comments')
                           ->latestFirst()
                           // ->published()
                           ->simplePaginate($this->limit);
@@ -41,7 +42,7 @@ class BlogController extends Controller
         $tagName = $tag->name;
 
         $posts = $tag->posts()
-                            ->with('author', 'tags', 'category')
+                            ->with('author', 'tags', 'category', 'comments')
                             ->published()
                             ->latestFirst()
                             ->simplePaginate($this->limit);
@@ -53,7 +54,7 @@ class BlogController extends Controller
     {
         $authorName = $author->name;
         $posts = $author->posts()
-                          ->with('category', 'tags')
+                          ->with('category', 'tags', 'comments')
                           ->latestFirst()
                           // ->published()
                           ->simplePaginate($this->limit);

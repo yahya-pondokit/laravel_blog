@@ -54,6 +54,17 @@
                               </li>
                             </ul>
                           </div>
+                          <div class="archives">
+                            <ul>
+                              <li class="side-title-head"> Blog Archives </li>
+                              @foreach ($archives as $archive)
+                                <li>
+                                  <a href="{{ route('blog', ['month' => $archive->month, 'year' => $archive->year]) }}">{{ $archive->month . " " . $archive->year }}</a>
+                                  <span class="badge pull-right">{{ $archive->post_count }}</span>
+                                </li>
+                              @endforeach
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
