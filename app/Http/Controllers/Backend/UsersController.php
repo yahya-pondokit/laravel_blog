@@ -26,6 +26,11 @@ class UsersController extends BackendController
     { 
         $usr = User::all();
         return DataTables::of($usr)
+                ->addColumn('action', function($user) {
+                    $submit = ($user->id == config('cms.default_user_id') || $user->id == auth()->user()->id) ? '<button onclick="return false" type="submit" class="btn btn-xs btn-danger disabled"><i class="fa fa-times"></i></button>' : '<button onclick="return confirm('."'Are you sure?'".')" type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' ;
+
+                    return '<form action="'.route('backend.users.destroy', $user->id).'" method="post">' . csrf_field() . method_field("DELETE") . '<a href="' . route('backend.users.edit', $user->id).'" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>'.$submit.'</form>';
+                })
                 ->addColumn('role', function($user) {
                     return $user->roles->first()->display_name;
                 })

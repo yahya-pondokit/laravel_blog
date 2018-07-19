@@ -42,7 +42,7 @@
             serverSide: true,
             ajax: '{!! route('data.user') !!}',
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'action', name: 'action'},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
                 {data: 'role', name: 'role'},
