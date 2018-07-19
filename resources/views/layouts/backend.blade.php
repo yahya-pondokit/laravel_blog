@@ -18,9 +18,13 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="/admin/bower_components/simplemde/simplemde.min.css">
-  <link rel="stylesheet" href="/css/custom.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+  <!-- Datatables CSS styling -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/jquery.dataTables.min.css">
+  <!-- TOASTR -->
+  <link rel="stylesheet" href="/css/toastr.min.css">
+  <link rel="stylesheet" href="/css/custom.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -275,11 +279,14 @@
 <script src="/admin/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
+<!-- Datatables JS styling -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+<!-- TOASTR -->
+<script src="/js/toastr.min.js"></script>
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree(),
     $('ul.pagination').addClass('no-margin pagination-sm')
-
     @yield('script')
   })
 </script>

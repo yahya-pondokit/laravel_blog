@@ -13,7 +13,8 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
-        "santigarcor/laratrust": "5.0.*"
+        "santigarcor/laratrust": "5.0.*",
+        "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

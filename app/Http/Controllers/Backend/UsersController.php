@@ -40,10 +40,11 @@ class UsersController extends BackendController
      */
     public function store(Requests\UserStoreRequest $request)
     {
-        User::create($request->all());
+        $data = $request->all();
+        $user = User::create($data);
         $user->attachRole($request->role);
 
-        return redirect("/backend/users")->with("message", "New User was created succesfully!");
+        return redirect("/backend/users")->with("success", "New User was created succesfully!");
     }
 
     /**
@@ -78,13 +79,19 @@ class UsersController extends BackendController
      */
     public function update(Requests\UserUpdateRequest $request, $id)
     {
+        if ($request->password == NULL) {
+            unset($request['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+        
         $user = User::findOrFail($id);
         $user->update($request->all());
 
         $user->detachRole($request->role);
         $user->attachRole($request->role);
 
-        return redirect("/backend/users")->with("message", "User was updated succesfully!");
+        return redirect("/backend/users")->with("success", "User was updated succesfully!");
     }
 
     /**
@@ -115,7 +122,7 @@ class UsersController extends BackendController
         }
         $user->delete();
 
-        return redirect("/backend/users")->with("message", "User was deleted succesfully!");
+        return redirect("/backend/users")->with("success", "User was deleted succesfully!");
     }
 
     public function confirm(Requests\UserDestroyRequest $request, $id)

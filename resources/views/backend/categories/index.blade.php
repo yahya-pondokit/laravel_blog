@@ -32,14 +32,14 @@
         </div>
         <div class="box-body">
           @include('backend.partials.message')
-
+<!-- 
         	@if( ! $categories->count())
 	        	<div class="alert alert-warning">
 	        		<strong>No record found</strong>
 	        	</div>
-        	@else
+        	@else -->
             @include('backend.categories.table')
-	        @endif
+	        <!-- @endif -->
         </div>
         <!-- /.box-body -->
         <div class="box-footer clearfix">

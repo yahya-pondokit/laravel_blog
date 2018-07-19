@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Montserrat:400,400i,600,600i,700');
+/*@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great')*/
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -8,7 +9,7 @@ ol, ul, li {
 	list-style: none;
 }
 #main {
-	padding-top: 80px;
+	padding-top: 50px;
 }
 .navbar-default {
 	border-style: dashed;
@@ -27,10 +28,30 @@ ol, ul, li {
 	font-size: 10pt;
 }
 
+.big-title {
+	background-color: #f8f8f8;
+	padding: 30px;
+	border-bottom: 1px dashed #e7e7e7;
+	margin-bottom: 40px;
+}
+
+.main-header .big-title h2 {
+    /*font-family: 'Gochi Hand', cursive;*/
+    color: #fff;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 48pt;
+    text-align: center;
+	text-shadow:
+		-1px -1px 0 #555,
+		1px -1px 0 #555,
+		-1px 1px 0 #555,
+		1px 1px 0 #555;
+}
+
 .article {
 	padding-bottom: 40px;
-	border-bottom: 1px dashed #83878f;
-	margin-bottom: 80px;
+	border-bottom: 1px dashed #e7e7e7;
+	margin-bottom: 30px;
 	margin-top: 15px;
 }
 .article-teaser img {
@@ -45,7 +66,7 @@ ol, ul, li {
 	text-decoration: none;
 }
 .article-body-inside a {
-	color: #111;
+	color: #333;
 }
 .article-title a {
 	color: #111111;
@@ -72,15 +93,19 @@ ol, ul, li {
 .side-title-head {
 	font-size: 18pt;
 	font-weight: 700;
+	padding-bottom: 30px;
 }
-.category li {
+#sidebar .side-title-head.now-with-more-padding {
+	padding-bottom: 32px;
+}
+.category li, .popular-post li, .archives li {
 	border-bottom: 1px dashed #e7e7e7;
 	padding: 8px;
 }
-.category li a {
+.category li a, .popular-post li a, .archives li a {
 	color: #83878f;
 }
-.category li a:hover, .article-title a:hover {
+.article-title a:hover, .category li a:hover, .popular-post li a:hover, .archives li a:hover {
 	color: #90b695;
 	text-decoration: none;
 }
@@ -100,4 +125,61 @@ ol, ul, li {
     width: 45px;
     line-height: 43px;
     margin-left: 0;
+}
+
+input.form-control, textarea.form-control {
+	border-radius: 0px;
+}
+textarea.form-control {
+	max-width: 750px;
+}
+
+.more-top-padding {
+	padding-top: 40px;
+}
+.footer .wrapper {
+	border-top: 1px dashed #e7e7e7;
+	margin-top: 60px;
+	padding: 30px;
+	background: #f8f8f8;
+}
+.btn.btn-primary {
+	border-radius: 0px;
+	font-size: 12pt;
+	padding: 6px 24px;
+	background: #ffffff;
+	color: #90b695;
+	border: 1px solid #90b695;
+}
+
+.btn.btn-primary:hover {
+	color: #fff;
+	background: #90b695;
+	border: 1px solid #90b695;
+}
+.comment-author-meta h4 {
+	font-weight: 600;
+	font-size: 23px;
+}
+.comment-author-meta {
+	margin-bottom: 30px;
+}
+.comment-item {
+	padding-bottom: 20px;
+	border-bottom: 1px dashed #90b695;
+	margin-bottom: 20px;
+}
+ul.tags {
+	padding: 0px;
+}
+ul.tags li {
+	padding: 5px 9px;
+	border: 1px solid #e2e2e2;
+	margin: 2px;
+} 
+.author-name a {
+	margin-top: 30px;
+}
+.author-name {
+	padding-bottom: 30px;
 }

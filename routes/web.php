@@ -21,6 +21,11 @@ Route::get('/blog/{post}', [
 	'as' => 'blog.show'
 ]);
 
+Route::post('/blog/comments', [
+	'uses' => 'CommentsController@store',
+	'as' => 'blog.comments'
+]);
+
 Route::get('/category/{category}', [
 	'uses' => 'BlogController@category',
 	'as' => 'category'
@@ -56,6 +61,9 @@ Route::name('backend.')->group(function (){
 Route::name('backend.')->group(function (){
 	Route::resource('/backend/categories', 'Backend\CategoriesController');
 });
+
+Route::get('/backend/categories/data-category', 'Backend\CategoriesController@dataCategory');
+
 Route::name('backend.')->group(function (){
 	Route::resource('/backend/users', 'Backend\UsersController');
 });

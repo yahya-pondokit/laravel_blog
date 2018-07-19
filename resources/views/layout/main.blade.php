@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand big-site-name" href="/">CVLT</a>
+              <a class="navbar-brand big-site-name" href="/">MyBlog</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-left">
@@ -36,7 +36,17 @@
         @yield('content')
 
         <div id="footer">
-
+            <div class="footer">
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">&copy Al-Madinah</div>
+                            <div class="col-md-4 text-center">- XD -</div>
+                            <div class="col-md-4 text-right">- Inspired by Matilda theme. Copyright 2019 -</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

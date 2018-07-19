@@ -99,9 +99,11 @@ class BlogController extends BackendController
         }
 
         $data = $this->handleRequest($request);
-        $request->user()->posts()->create($data);
 
-        return redirect( route('backend.blog.index') )->with('message', 'Your post was created successfully!!');
+        $newPost    =   $request->user()->posts()->create($data);
+        $newPost->createTags($data["post_tags"]);
+
+        return redirect( route('backend.blog.index') )->with('success', 'Your post was created successfully!!');
     }
 
     private function handleRequest($request)
@@ -174,7 +176,7 @@ class BlogController extends BackendController
         if ($oldImage !== $post->image) {
             $this->removeImage($oldImage);
         }
-        return redirect( route('backend.blog.index') )->with('message', 'Your post was updated successfully!!');
+        return redirect( route('backend.blog.index') )->with('success', 'Your post was updated successfully!!');
     }
 
     /**
@@ -196,7 +198,7 @@ class BlogController extends BackendController
 
         $this->removeImage($post->image); 
 
-        return redirect('/backend/blog?status=trash')->with('message', 'Your post has been deleted successfully');
+        return redirect('/backend/blog?status=trash')->with('success', 'Your post has been deleted successfully');
     }
 
     public function restore($id)
@@ -204,7 +206,7 @@ class BlogController extends BackendController
         $post = Post::withTrashed()->findOrFail($id);
         $post->restore();
 
-        return redirect()->back()->with('message', 'Your post has been revived from the dead');
+        return redirect()->back()->with('success', 'Your post has been revived from the dead');
     }
 
     private function removeImage($image)

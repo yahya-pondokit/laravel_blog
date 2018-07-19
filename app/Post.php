@@ -42,7 +42,28 @@ class Post extends Model
     {
         $commentsNumber = $this->comments->count();
 
-        return $commentsNumber . " " . str_plural($label, $commentsNumber);
+        return $commentsNumber . " " . str_plural($label, ($commentsNumber ? $commentsNumber : 1));
+    }
+
+    public function createComment(array $data)
+    {
+        $this->comments()->create($data);
+    }
+
+    public  function    createTags($tagString)
+    {
+        $tags   =   explode(",",    $tagString);
+        $tagIds =   [];
+        foreach ($tags  as  $tag)   
+        {                               
+            $newTag =   Tag::firstOrCreate(['slug' => str_slug($tag), 'name' => ucwords(trim($tag))]);
+            $newTag->name   =   ucwords(trim($tag));
+            $newTag->slug   =   str_slug($tag);
+            $newTag->save();        
+            $tagIds[]   =   $newTag->id;
+        }
+        
+        $this->tags()->attach($tagIds);
     }
 
     public function setPublishedAtAttribute($value)
@@ -135,7 +156,7 @@ class Post extends Model
 
     public function scopeLatestFirst($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('published_at', 'desc');
     }
 
     public function scopePopular($query)
@@ -145,17 +166,17 @@ class Post extends Model
 
     public function scopePublished($query)
     {
-        return $query->where("published_at", "<=", Carbon::now());
+        return $query->where('published_at', '<=', Carbon::now());
     }
 
     public function scopeScheduled($query)
     {
-        return $query->where("published_at", ">", Carbon::now());
+        return $query->where('published_at', '>', Carbon::now());
     }
 
     public function scopeDraft($query)
     {
-        return $query->whereNull("published_at");
+        return $query->whereNull('published_at');
     }
 
     public function scopeFilter($query, $filter)

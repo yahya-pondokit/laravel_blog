@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Post;
+use DataTables;
 
 class CategoriesController extends BackendController
 {
@@ -20,6 +21,12 @@ class CategoriesController extends BackendController
         $categories = Category::with('posts')->orderBy('title')->paginate($this->limit);
         $categoriesCount = Category::count();
         return view("backend.categories.index", compact('categories', 'categoriesController', 'categoriesCount'));
+    }
+
+    public function dataCategory()
+    { 
+        $cat = Category::select(['id', 'title', 'slug']);
+        return DataTables::of($cat)->make(true);
     }
 
     /**
@@ -43,7 +50,7 @@ class CategoriesController extends BackendController
     {
         Category::create($request->all());
 
-        return redirect("/backend/categories")->with("message", "New category was created succesfully!");
+        return redirect("/backend/categories")->with("success", "New category was created succesfully!");
     }
 
     /**
@@ -80,7 +87,7 @@ class CategoriesController extends BackendController
     {
         Category::findOrFail($id)->update($request->all());
 
-        return redirect("/backend/categories")->with("message", "Category was updated succesfully!");
+        return redirect("/backend/categories")->with("success", "Category was updated succesfully!");
     }
 
     /**
@@ -96,6 +103,6 @@ class CategoriesController extends BackendController
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect("/backend/categories")->with("message", "Category was deleted succesfully!");
+        return redirect("/backend/categories")->with("success", "Category was deleted succesfully!");
     }
 }

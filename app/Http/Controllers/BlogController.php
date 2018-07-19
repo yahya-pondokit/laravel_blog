@@ -11,15 +11,15 @@ use App\Comment;
 
 class BlogController extends Controller
 {
-	protected $limit = 3;
+	protected $limit = 4;
 
     public function index()
     {
       $posts = Post::with('author', 'tags', 'category', 'comments')
               ->latestFirst()
-                            ->published()
-                            ->filter(request()->only(['term', 'year', 'month']))
-                            ->simplePaginate($this->limit);
+              ->published()
+              ->filter(request()->only(['term', 'year', 'month']))
+              ->simplePaginate($this->limit);
 
       return view('blog.index', compact('posts'));
     }
@@ -31,7 +31,7 @@ class BlogController extends Controller
         $posts = $category->posts()
                           ->with('author', 'tags', 'comments')
                           ->latestFirst()
-                          // ->published()
+                          ->published()
                           ->simplePaginate($this->limit);
 
         return view("blog.index", compact('posts', 'categoryName'));
@@ -66,7 +66,10 @@ class BlogController extends Controller
     {
       // way to count views
       $post->increment('view_count');
-    	return view("blog.show", compact('post', 'categories'));
+
+      $postComments = $post->comments()->simplePaginate(3);
+
+    	return view("blog.show", compact('post', 'postComments'));
     }
 
     
