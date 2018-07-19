@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Intervention\Image\Facades\Image;
 use App\Post;
+use DataTables;
 
 class BlogController extends BackendController
 {
@@ -60,6 +61,22 @@ class BlogController extends BackendController
         $statusList = $this->statusList($request);
 
         return view("backend.blog.index", compact('posts', 'postCount', 'onlyTrashed', 'statusList'));
+    }
+
+    public function dataPost()
+    { 
+        $post = Post::with('author', 'category');
+        return DataTables::of($post)
+                ->addColumn('author', function($post) {
+                    return $post->author->name;
+                })
+                ->addColumn('category', function($post) {
+                    return $post->category->title;
+                })
+                ->addColumn('date', function($post) {
+                    return $post->dateFormatted(true);
+                })
+                ->make(true);
     }
 
     private function statusList($request)

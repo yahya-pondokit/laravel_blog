@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use DataTables;
 
 class UsersController extends BackendController
 {
@@ -21,6 +22,15 @@ class UsersController extends BackendController
         return view("backend.users.index", compact('users', 'usersController', 'usersCount'));
     }
 
+    public function dataUser()
+    { 
+        $usr = User::all();
+        return DataTables::of($usr)
+                ->addColumn('role', function($user) {
+                    return $user->roles->first()->display_name;
+                })
+                ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

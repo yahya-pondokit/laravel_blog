@@ -74,3 +74,13 @@ Route::get('/data-category', [
 	'uses'	=> 'Backend\CategoriesController@dataCategory',
 	'as'	=> 'data.category'
 ]);
+
+Route::get('/data-user', [
+	'uses'	=> 'Backend\UsersController@dataUser',
+	'as'	=> 'data.user'
+]);
+
+Route::get('/data-post', [
+	'uses'	=> 'Backend\BlogController@dataPost',
+	'as'	=> 'data.post'
+]);

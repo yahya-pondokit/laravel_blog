@@ -55,12 +55,12 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer clearfix">
-        	<div class="pull-left">
+       <!--  	<div class="pull-left">
 	          {{ $posts->appends( Request::query() )->render() }}
       		</div>
       		<div class="pull-right">
       			<small>{{ $postCount }} {{ str_plural('Item', $postCount) }}</small>
-      		</div>
+      		</div> -->
         </div>
         <!-- /.box-footer-->
       </div>

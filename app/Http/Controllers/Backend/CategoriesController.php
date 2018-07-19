@@ -18,15 +18,21 @@ class CategoriesController extends BackendController
      */
     public function index()
     {
-        $categories = Category::with('posts')->orderBy('title')->paginate($this->limit);
-        $categoriesCount = Category::count();
-        return view("backend.categories.index", compact('categories', 'categoriesController', 'categoriesCount'));
+        return view("backend.categories.index");
+        //, compact('categories', 'categoriesController', 'categoriesCount')
     }
+
+
 
     public function dataCategory()
     { 
         $cat = Category::with('posts');
         return DataTables::of($cat)
+                ->addColumn('action', function($category) {
+                    $submit = ($category->id == config('cms.default_category_id')) ? '<button onclick="return false" type="submit" class="btn btn-xs btn-danger disabled"><i class="fa fa-times"></i></button>' : '<button onclick="return confirm('."'Are you sure?'".')" type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' ;
+
+                    return '<form action="'.route('backend.categories.destroy', $category->id).'" method="post">' . csrf_field() . method_field("DELETE") . '<a href="' . route('backend.categories.edit', $category->id).'" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>'.$submit.'</form>';
+                })
                 ->addColumn('post-count', function($category) {
                     return $category->posts->count();
                 })
