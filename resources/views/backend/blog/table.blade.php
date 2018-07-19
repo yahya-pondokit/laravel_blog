@@ -54,7 +54,7 @@
             serverSide: true,
             ajax: '{!! route('data.post') !!}',
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'action', name: 'action'},
                 {data: 'title', name: 'title'},
                 {data: 'author', name: 'author'},
                 {data: 'category', name: 'category'},

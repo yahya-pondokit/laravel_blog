@@ -67,6 +67,11 @@ class BlogController extends BackendController
     { 
         $post = Post::with('author', 'category');
         return DataTables::of($post)
+                ->addColumn('action', function($user) {
+                    $submit = '<button onclick="return confirm('."'Are you sure?'".')" type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' ;
+
+                    return '<form action="'.route('backend.blog.destroy', $user->id).'" method="post">' . csrf_field() . method_field("DELETE") . '<a href="' . route('backend.blog.edit', $user->id).'" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>'.$submit.'</form>';
+                })
                 ->addColumn('author', function($post) {
                     return $post->author->name;
                 })
