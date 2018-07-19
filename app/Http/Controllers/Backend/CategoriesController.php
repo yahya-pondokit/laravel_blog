@@ -25,8 +25,12 @@ class CategoriesController extends BackendController
 
     public function dataCategory()
     { 
-        $cat = Category::select(['id', 'title', 'slug']);
-        return DataTables::of($cat)->make(true);
+        $cat = Category::with('posts');
+        return DataTables::of($cat)
+                ->addColumn('post-count', function($category) {
+                    return $category->posts->count();
+                })
+                ->make(true);
     }
 
     /**

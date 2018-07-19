@@ -34,19 +34,18 @@
 	</tbody> -->
 </table>
 @section('script')
-		$('ul.pagination').addClass('no-margin pagination-sm');
-		$(function() {
-        var oTable = $('#table-category').DataTable({
+	$('ul.pagination').addClass('no-margin pagination-sm');
+
+	$(function() {
+        $('#table-category').DataTable({
             processing: true,
             serverSide: true,
-            ajax: {
-                url: "{{ url('/backend/categories/data-category') }}",
-            },
+            ajax: '{!! route('data.category') !!}',
             columns: [
-            {data: 'id', name: 'id'},
-            {data: 'title', name: 'title'},
-            {data: 'slug', name: 'slug'},
-        ],
+                {data: 'id', name: 'id'},
+                {data: 'title', name: 'title'},
+                {data: 'post-count', name: 'post-count'},
+            ],
         });
     });
 @endsection

@@ -62,8 +62,6 @@ Route::name('backend.')->group(function (){
 	Route::resource('/backend/categories', 'Backend\CategoriesController');
 });
 
-Route::get('/backend/categories/data-category', 'Backend\CategoriesController@dataCategory');
-
 Route::name('backend.')->group(function (){
 	Route::resource('/backend/users', 'Backend\UsersController');
 });
@@ -72,3 +70,7 @@ Route::get('/backend/users/confirm/{users}', [
 	'as' => 'backend.users.confirm'
 ]);
 
+Route::get('/data-category', [
+	'uses'	=> 'Backend\CategoriesController@dataCategory',
+	'as'	=> 'data.category'
+]);
